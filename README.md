@@ -64,7 +64,21 @@ JWT-based. On signup/login the token is returned in the response body and also s
 
 Each task belongs to the user who created it; a user can only read, update, or delete their own tasks.
 
-## AI Tools Disclosure
+## Deployment (Vercel)
 
+This repo includes a `vercel.json` that runs `server.js` as a serverless function via `@vercel/node`.
+
+Steps:
+
+1. Import the repo into Vercel.
+2. In Project Settings > Environment Variables, add: `NODE_ENV=production`, `DB_URI`, `JWT_SECRET_KEY`, `JWT_EXPIRE_TIME`, `CLIENT_URL` (your deployed frontend URL, e.g. `https://your-frontend.vercel.app`).
+3. Deploy. Vercel builds and calls the exported Express `app` on each request; the app never binds a local port in that environment.
+
+Notes:
+
+- `CLIENT_URL` must exactly match the frontend's deployed origin for CORS and cookies to work.
+- Since the API is deployed over HTTPS and the frontend is on a different origin, cookies are sent with `secure: true` and `sameSite: none` automatically when `NODE_ENV=production` (see `services/authService.js`).
+
+## AI Tools Disclosure
 
 AI tools (e.g. Claude) were used to help write clear and consistent commit messages, and to help draft this README. All code, architecture decisions, and implementation were written and reviewed manually.

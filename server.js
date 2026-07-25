@@ -43,6 +43,8 @@ app.use(globalError);
 
 const PORT = process.env.PORT || 8000;
 
+// Vercel imports this file as a serverless function and calls the exported
+// app directly, so we only start a local listener when running outside Vercel.
 if (!process.env.VERCEL) {
   const server = app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
@@ -58,3 +60,4 @@ if (!process.env.VERCEL) {
 }
 
 module.exports = app;
+
