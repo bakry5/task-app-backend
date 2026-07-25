@@ -35,6 +35,10 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/tasks', taskRoute);
 
+app.use('/', (req, res) => {
+  res.send('server is running');
+});
+
 app.all('*', (req, res, next) => {
   next(new ApiError(`Can't find this route: ${req.originalUrl}`, 400));
 });
