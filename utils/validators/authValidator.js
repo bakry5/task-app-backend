@@ -1,20 +1,20 @@
-const { check } = require('express-validator');
+const { body } = require('express-validator');
 const validatorMiddleware = require('../../middlewares/validatorMiddleware');
 
 exports.signupValidator = [
-  check('name')
+  body('name')
     .notEmpty()
     .withMessage('Name is required')
     .isLength({ min: 3 })
     .withMessage('Too short user name'),
 
-  check('email')
+  body('email')
     .notEmpty()
     .withMessage('Email is required')
     .isEmail()
     .withMessage('Invalid email address'),
 
-  check('password')
+  body('password')
     .notEmpty()
     .withMessage('Password is required')
     .isLength({ min: 6 })
@@ -24,13 +24,13 @@ exports.signupValidator = [
 ];
 
 exports.loginValidator = [
-  check('email')
+  body('email')
     .notEmpty()
     .withMessage('Email is required')
     .isEmail()
     .withMessage('Invalid email address'),
 
-  check('password').notEmpty().withMessage('Password is required'),
+  body('password').notEmpty().withMessage('Password is required'),
 
   validatorMiddleware,
 ];
